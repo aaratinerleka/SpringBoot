@@ -1,0 +1,11 @@
+com\school\schoolMgmt\model\Student.class
+com\school\schoolMgmt\repository\StudentRepository.class
+com\school\schoolMgmt\model\CourseAssignment.class
+com\school\schoolMgmt\model\Course.class
+com\school\schoolMgmt\repository\CourseRepository.class
+com\school\schoolMgmt\service\CourseService.class
+com\school\schoolMgmt\controller\SchoolMgmtController.class
+com\school\schoolMgmt\repository\CourseAssignmentRepository.class
+com\school\schoolMgmt\service\CourseAssignmentService.class
+com\school\schoolMgmt\service\StudentService.class
+com\school\schoolMgmt\SchoolMgmtApplication.class
