@@ -32,6 +32,9 @@ public class SchoolMgmtController {
         this.cservice = cservice;
         this.service = service;
     }
+	
+	
+	//Add new course
 	@PostMapping(value = "/add-course", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String addNewCourse(/*@Valid*/ @ModelAttribute Course course, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -44,6 +47,9 @@ public class SchoolMgmtController {
         model.addAttribute("students", sservice.findAll());
         return "students";
     }
+	
+	
+	//go to map course screen
 	@GetMapping("/map-course")
     public String mapCourse(Model model) {
         model.addAttribute("sc", new CourseAssignment() );
@@ -51,6 +57,8 @@ public class SchoolMgmtController {
         model.addAttribute("courses", cservice.findAll());
         return "map-course";
     }
+	
+	//map course and student
 	@PostMapping(value = "/map-course/{sid}/{cid}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String mapNewCourse(/*@Valid*/ @PathVariable Long sid, @PathVariable Long cid, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -63,6 +71,7 @@ public class SchoolMgmtController {
         return "map-course";
     }
 	
+	//show all students and courses on screen
 	@GetMapping
     public String showAllStudentss(Model model) {
         model.addAttribute("students", sservice.findAll());
@@ -70,11 +79,14 @@ public class SchoolMgmtController {
         return "students";
     }
 
+	//go to add new student screen
     @GetMapping("/new-student")
     public String showStudentCreationForm(Model model) {
         model.addAttribute("student", new Student());
         return "new-student";
     }
+    
+  //Add new student
     @PostMapping(value = "/add-student", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String addNewStudent(/*@Valid*/ @ModelAttribute Student student, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -88,6 +100,7 @@ public class SchoolMgmtController {
         return "students";
     }
 
+  //get student by its id to update
     @GetMapping("/{id}")
     public String showStudentdById(@PathVariable Long id, Model model) {
     	Student student = sservice.findById(id)
@@ -96,6 +109,7 @@ public class SchoolMgmtController {
         return "edit-student";
     }
     
+  //update student Information
     @PutMapping("/{id}/update")
     public String updateStudent(@PathVariable Long id, /*@Valid*/ @ModelAttribute Student student, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -110,6 +124,8 @@ public class SchoolMgmtController {
         model.addAttribute("students", sservice.findAll());
         return "students";
     }
+    
+  //update course information
     @PutMapping("/{id}/update-course")
     public String updateCourse(@PathVariable Long id, /*@Valid*/ @ModelAttribute Course course, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -125,6 +141,7 @@ public class SchoolMgmtController {
         return "students";
     }
 
+  //delete student
     @PostMapping("/{id}/delete")
     public String deleteStudent(@PathVariable Long id, Model model) {
     	sservice.findById(id)
@@ -135,6 +152,7 @@ public class SchoolMgmtController {
         return "students";
     }
     
+  //delete course
     @PostMapping("/{id}/delete-course")
     public String deleteCourse(@PathVariable Long id, Model model) {
     	cservice.findById(id)
@@ -144,12 +162,15 @@ public class SchoolMgmtController {
         model.addAttribute("students", sservice.findAll());
         return "students";
     }
+    
+    //go to the screen where you can create new course
     @GetMapping("/new-course")
     public String showCourseCreationForm(Model model) {
         model.addAttribute("course", new Course());
         return "new-course";
     }
     
+  //go to the screen where you can edit course
     @GetMapping("/{id}/edit-course")
     public String showCourseById(@PathVariable Long id, Model model) {
     	Course course = cservice.findById(id)
@@ -158,7 +179,7 @@ public class SchoolMgmtController {
         return "edit-course";
     }
     
-    
+    //get list of courses who are assigned to specific student
     @GetMapping("/get-course-by-sid/(sid)")
     public String showAssignedCoursesToStudent(@PathVariable Long sid, Model model) {
     	Set<Course> courses = cservice.findByStudentId(sid);
@@ -166,6 +187,7 @@ public class SchoolMgmtController {
         return "map-course";
     }
     
+    //get list of students which are assigned to any course
     @GetMapping("/get-student-by-cid/(cid)")
     public String showAssignedStudentToCourse(@PathVariable Long cid, Model model) {
     	Set<Student> students = sservice.findByStudentId(cid);
@@ -173,6 +195,7 @@ public class SchoolMgmtController {
         return "map-course";
     }
     
+    //get courses which are not assigned to any student
     @GetMapping("/get-course-not-assigned")
     public String showNotAssignedCoursesToStudent(Model model) {
     	Set<Course> courses = cservice.notMappedWithAnyCourse();
@@ -180,6 +203,7 @@ public class SchoolMgmtController {
         return "map-course";
     }
     
+    //get students which are not assigned to any any course
     @GetMapping("/get-student-not-assigned")
     public String showNotAssignedStudentToCourse(Model model) {
     	Set<Student> students = sservice.notMappedWithAnyCourse();
