@@ -1,5 +1,7 @@
 package com.school.schoolMgmt.controller;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -154,5 +156,34 @@ public class SchoolMgmtController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid course Id:" + id));
         model.addAttribute("course", course);
         return "edit-course";
+    }
+    
+    
+    @GetMapping("/get-course-by-sid/(sid)")
+    public String showAssignedCoursesToStudent(@PathVariable Long sid, Model model) {
+    	Set<Course> courses = cservice.findByStudentId(sid);
+        model.addAttribute("courses", courses);
+        return "map-course";
+    }
+    
+    @GetMapping("/get-student-by-cid/(cid)")
+    public String showAssignedStudentToCourse(@PathVariable Long cid, Model model) {
+    	Set<Student> students = sservice.findByStudentId(cid);
+        model.addAttribute("students", students);
+        return "map-course";
+    }
+    
+    @GetMapping("/get-course-not-assigned")
+    public String showNotAssignedCoursesToStudent(Model model) {
+    	Set<Course> courses = cservice.notMappedWithAnyCourse();
+        model.addAttribute("courses", courses);
+        return "map-course";
+    }
+    
+    @GetMapping("/get-student-not-assigned")
+    public String showNotAssignedStudentToCourse(Model model) {
+    	Set<Student> students = sservice.notMappedWithAnyCourse();
+        model.addAttribute("students", students);
+        return "map-course";
     }
 }
