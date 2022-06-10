@@ -9,3 +9,4 @@ H2 db
 2. SchoolMgmtApplication file need to run as javaApplication
 3. on chrome load - http://localhost:8080/ for Add new student or add new Course
 4. you can check database by - http://localhost:8080/h2-console/
+5. For Map Course and filter student or course tested by jmeter
