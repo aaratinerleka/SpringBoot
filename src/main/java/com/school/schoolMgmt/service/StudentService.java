@@ -2,6 +2,7 @@ package com.school.schoolMgmt.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -41,5 +42,13 @@ public class StudentService {
 
     public void deleteById(Long id) {
         srepository.deleteById(id);
+    }
+    
+    public Set<Student>findByStudentId(long sid){
+    	return srepository.findByStudentId(sid);
+    }
+    
+    public Set<Student>notMappedWithAnyCourse(){
+    	return srepository.findNotAssignedStudents();
     }
 }
